@@ -21,6 +21,10 @@ namespace PublishTest2
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    var assemblyFilePath = System.Reflection.Assembly.GetEntryAssembly().Location;
+                    var binDirectory = System.IO.Path.GetDirectoryName(assemblyFilePath);
+                    webBuilder.UseContentRoot(binDirectory);
+                    webBuilder.UseWebRoot("wwwroot");
                 });
     }
 }

@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <EnableDefaultContentItems>false</EnableDefaultContentItems>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
   
+  <ItemGroup>                                                                          
+       <Content Include="Views\**\*" CopyToOutputDirectory="Always" />
+       <Content Include="wwwroot\**\*" CopyToOutputDirectory="Always" />
+    </ItemGroup>   
+
 </Project>
