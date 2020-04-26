@@ -1,0 +1,65 @@
+﻿
+
+https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-3.1
+
+Det enda din daemon (service) ska göra är att köra kestrel i bakgrunden. Det är allt. nginx uppdrag är
+att agera proxy server och omdirigera trafiken till din kestrel-server. Du kan enkelt testa din service
+genom att göra systemctl status på din service. Du ska se att den körs på samma sätt som om du körde
+dotnet myservice.dll
+
+Om nginx fungerar så ska du kunna slå in din Ip-adress i port 80 i din webbläsare och komma till din sida.
+
+När du väl publicerar ditt mvc core projekt så kommer du att märka att css och razor filer saknas. Det är
+pga att dem inte kommer med i default. Du måste specificera att dem ska tas med.
+
+Kan även behöva specificera wwwroot och ditt directory
+
+.UseKestrel()
+.UseContentRoot(binDirectory) // <--
+.UseWebRoot("wwwroot") // <--
+.UseIISIntegration()
+.UseStartup<Startup>()
+.Build();
+
+Du kan göra ett eget ssl cert om du vill, men detta är endast för utv. inte prod.
+
+
+https://www.humankode.com/ssl/create-a-selfsigned-certificate-for-nginx-in-5-minutes
+
+https://github.com/dotnet/aspnetcore/issues/4724
+""
+When you run the tool on the CLI you are using your current user. When you run it as a service the user is www-data. For it to work you will need to run the dotnet-devcerts tool as the www-data user.
+
+Alternatively you can generate an ssl cert and configure kestrel to use it. I think that is a better option if you are running the app as a service. Hope this helps.
+""
+
+Användaren www-data måste alltså ha access till /var/www/dinbuildmapp
+
+Gör detta med sudo chown -R 
+
+
+OBS! Om du inte har ett domännamn så måste du specificera en privat IP-adress (brukar vara 127.0.0.1)
+
+https://serverfault.com/questions/351559/nginx-without-server-name-and-using-only-static-ip-address
+
+ listen 1.2.3.4:80 default_server;
+
+
+
+https://stackoverflow.com/questions/42909568/visual-studio-2017-csproj-net-core-build-views-not-being-copied-correctly
+
+DDNS:
+
+https://www.youtube.com/watch?v=rOLGvZagdC0
+
+Port forwarding:
+
+https://www.youtube.com/watch?v=2G1ueMDgwxw
+
+Privat IP:
+
+https://whatismyipaddress.com/private-ip
+
+VLAN:
+
+https://www.youtube.com/watch?v=jC6MJTh9fRE
