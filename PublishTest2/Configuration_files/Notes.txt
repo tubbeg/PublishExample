@@ -2,6 +2,7 @@
 
 https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-3.1
 
+
 Det enda din daemon (service) ska göra är att köra kestrel i bakgrunden. Det är allt. nginx uppdrag är
 att agera proxy server och omdirigera trafiken till din kestrel-server. Du kan enkelt testa din service
 genom att göra systemctl status på din service. Du ska se att den körs på samma sätt som om du körde
